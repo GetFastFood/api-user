@@ -1,12 +1,14 @@
+require('dotenv').config();
 const mssql = require('mssql');
+
 class DBConnection {
   async getConnection() {
      try {
        return await mssql.connect({
-              user: 'sa',
-              password: '@aCLSkT5D@KQk6DQ',
-              server: '91.236.239.56',
-              database: 'getFastSQL',
+              user: process.env.DB_USER,
+              password: process.env.DB_PASSWORD,
+              server: process.env.DB_SERVER,
+              database: process.env.DB_DATABASE,
               port: 1433,
               options: {
                 encrypt: false,

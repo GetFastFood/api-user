@@ -1,4 +1,4 @@
-const mssqlcon = require('../../src/database');
+const mssqlcon = require('../../database/database');
 class UserMSSql {
   async getAllUsers() {
     const conn = await mssqlcon.getConnection();
@@ -6,6 +6,7 @@ class UserMSSql {
     return res.recordset;
   }
   async addUser(prod) {
+
     const conn = await mssqlcon.getConnection();
     const res = await conn.request()
     .input("firstname", prod.firstname)
@@ -16,12 +17,13 @@ class UserMSSql {
     .input("tel", prod.tel)
     .input("status", prod.status)
     .input("role", prod.role)
-    .execute("addUser");
+    .execute("dbo.addUser");
     return res;
  }
  async updateUser(prod) {
    const conn = await mssqlcon.getConnection();
    const res = await conn.request()
+    .input("ID", prod.ID)
     .input("firstname", prod.firstname)
     .input("lastname", prod.lastname)
     .input("password", prod.password)
@@ -33,12 +35,14 @@ class UserMSSql {
     .execute("updateUser");
    return res;
  }
-//  async deleteProduct(id) {
-//    const conn = await mssqlcon.getConnection();
-//    const res = await conn.request()
-//    .input("product_id", id)
-//    .execute("deleteProduct");
-//    return res;
-//  }
+
+ async deleteUser(id) {
+   const conn = await mssqlcon.getConnection();
+   const res = await conn.request()
+   .input("ID", id)
+   .execute("deleteUser");
+   return res;
+ }
 }
+
 module.exports = new UserMSSql();

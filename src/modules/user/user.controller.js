@@ -1,4 +1,4 @@
-const user = require('../../src/router');
+const user = require('../../routes/router');
 const express = require('express');
 const router = express.Router();
 class UserController {
@@ -6,6 +6,8 @@ class UserController {
       router.get('/', user.getAllUsers);
       router.post('/', user.addUser);
       router.put('/', user.updateUser);
+      router.delete('/:id', user.deleteUser);
+      
       app.use('/api/v1/users', router);
     }
  }
