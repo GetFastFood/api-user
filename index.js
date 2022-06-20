@@ -1,5 +1,6 @@
+require('dotenv').config()
 const app = require('./app');
 const server = require('http').Server(app);
-server.listen(4001,'localhost', ()=> {
-    console.log('Server Started');
+server.listen(process.env.PORT,'localhost', ()=> {
+    console.log('Server Started', process.env.PORT);
 });

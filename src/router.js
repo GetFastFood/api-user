@@ -1,4 +1,4 @@
-const userMssql = require('./user.mssql');
+const userMssql = require('../modules/user/user.mssql');
 class user {
   async getAllUsers(req, res) {
       try {
@@ -9,24 +9,24 @@ class user {
         console.log(error);
      }
   }
-//  async addProduct(req, res) {
-//   try {
-//     const output = await productMssql.addProduct(req.body);
-//     res.send(output);
-//   }
-//   catch (error) {
-//    console.log(error);
-//   }
-// }
-// async updateProduct(req, res) {
-//   try {
-//     const output = await productMssql.updateProduct(req.body);
-//     res.send(output);
-//  }
-//  catch (error) {
-//  console.log(error);
-// }
-// }
+ async addUser(req, res) {
+  try {
+    const output = await userMssql.addUser(req.body);
+    res.send(output);
+  }
+  catch (error) {
+   console.log(error);
+  }
+}
+async updateUser(req, res) {
+  try {
+    const output = await userMssql.updateUser(req.body);
+    res.send(output);
+ }
+ catch (error) {
+ console.log(error);
+}
+}
 // async deleteProduct(req, res) {
 //    const id = req.params.id;
 //    try {
