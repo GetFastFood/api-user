@@ -5,8 +5,14 @@ class UserMSSql {
     const res = await conn.request().query('SELECT * FROM db_users');
     return res.recordset;
   }
-  async addUser(prod) {
 
+  async getUsers(id) {
+    const conn = await mssqlcon.getConnection();
+    const res = await conn.request().input('id', id).query('SELECT * FROM db_users WHERE id = @id');
+    return res.recordset;
+  }
+
+  async addUser(prod) {
     const conn = await mssqlcon.getConnection();
     const res = await conn.request()
     .input("firstname", prod.firstname)
@@ -20,10 +26,11 @@ class UserMSSql {
     .execute("dbo.addUser");
     return res;
  }
- async updateUser(prod) {
-   const conn = await mssqlcon.getConnection();
-   const res = await conn.request()
-    .input("ID", prod.ID)
+
+ async updateUsers(id, prod) {
+    const conn = await mssqlcon.getConnection();
+    const res = await conn.request()
+    .input("id", id)
     .input("firstname", prod.firstname)
     .input("lastname", prod.lastname)
     .input("password", prod.password)
@@ -32,9 +39,9 @@ class UserMSSql {
     .input("tel", prod.tel)
     .input("status", prod.status)
     .input("role", prod.role)
-    .execute("updateUser");
-   return res;
- }
+    .execute("dbo.updateUser");
+    return res;
+  }
 
  async deleteUser(id) {
    const conn = await mssqlcon.getConnection();
@@ -43,6 +50,7 @@ class UserMSSql {
    .execute("deleteUser");
    return res;
  }
+
 }
 
 module.exports = new UserMSSql();

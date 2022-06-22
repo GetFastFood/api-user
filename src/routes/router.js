@@ -11,6 +11,20 @@ class user {
      }
   }
 
+  async getUsers(req, res){
+    try
+    {
+      const id = req.params.id;
+      if (!id) {
+        console.log('id is not passed');
+      }
+      const output = await userMssql.getUsers(id);
+      res.send(output);
+    }catch(error){
+      console.log(error);
+    }
+  }
+
  async addUser(req, res) {
   try {
     const output = await userMssql.addUser(req.body);
@@ -21,13 +35,18 @@ class user {
   }
 }
 
-async updateUser(req, res) {
+async updateUsers(req, res) {
   try {
-    const output = await userMssql.updateUser(req.body);
+    const id = req.params.id;
+    if (!id) {
+      console.log('id is not passed');
+    }
+
+    const output = await userMssql.updateUsers(id, req.body);
     res.send(output);
- }
- catch (error) {
-  console.log(error);
+  }
+  catch (error) {
+    console.log(error);
   }
 }
 
