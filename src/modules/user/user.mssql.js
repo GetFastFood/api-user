@@ -51,6 +51,12 @@ class UserMSSql {
    return res;
  }
 
+  async getUserByEmail(email) {
+    const conn = await mssqlcon.getConnection();
+    const res = await conn.request().input('email', email).query('SELECT * FROM db_users WHERE email = @email');
+    return res.recordset;
+  }
+
 }
 
 module.exports = new UserMSSql();

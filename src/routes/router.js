@@ -28,6 +28,7 @@ class user {
  async addUser(req, res) {
   try {
     const output = await userMssql.addUser(req.body);
+    console.log(output);
     res.send(output);
   }
   catch (error) {
@@ -63,6 +64,20 @@ async deleteUser(req, res) {
     console.log(error);
    }
  }
+
+ async getUserByEmail(req, res) {
+  try {
+    const email = req.params.email;
+    if (!email) {
+      console.log('email is not passed');
+    }
+    const output = await userMssql.getUserByEmail(email);
+    res.send(output);
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
 }
 
 module.exports = new user();
